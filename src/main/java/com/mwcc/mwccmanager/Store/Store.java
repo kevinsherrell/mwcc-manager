@@ -1,20 +1,23 @@
 package com.mwcc.mwccmanager.Store;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="store")
 public class Store {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name="city", nullable = false)
     private String city;
+    @Column(name="state", nullable = false)
     private String state;
+    @Column(name="addreses", nullable=false)
     private String address;
 
 
-    public Store(Long id, String city, String state, String address) {
+    public Store(String city, String state, String address) {
         this.id = id;
         this.city = city;
         this.state = state;
@@ -52,5 +55,15 @@ public class Store {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

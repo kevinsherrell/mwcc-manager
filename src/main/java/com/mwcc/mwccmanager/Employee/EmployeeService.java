@@ -18,8 +18,11 @@ public class EmployeeService {
     public Iterable<Employee> getAllEmployees() throws Exception {
         return employeeRepository.findAll();
     }
-
+    public Iterable<Employee> getAllByStoreId(Long storeId){
+        return employeeRepository.findByStoreId(storeId);
+    }
     public Optional<Employee> getById(Long id) {
+
         return employeeRepository.findById(id);
     }
 

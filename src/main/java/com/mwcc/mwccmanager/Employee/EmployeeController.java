@@ -19,6 +19,7 @@ public class EmployeeController {
         employee.setId(0L);
         System.out.println(employee.getId());
         employeeService.saveOrUpdateEmployee(employee);
+        System.out.println(employee.getHomeStore().toString());
         return new ResponseEntity<Employee>(employee, HttpStatus.CREATED);
     }
 
@@ -37,12 +38,18 @@ public class EmployeeController {
 
     @GetMapping("id/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
+
         return new ResponseEntity<>(employeeService.getById(id), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("role/{role}")
     public ResponseEntity<?> getAllByRole(@PathVariable String role) {
         return new ResponseEntity<>(employeeService.getByRole(role), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/store/{storeId}")
+    public ResponseEntity<?> getAllByStoreId(@PathVariable Long storeId) {
+        return new ResponseEntity<>(employeeService.getAllByStoreId(storeId), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("access/{accessLevel}")

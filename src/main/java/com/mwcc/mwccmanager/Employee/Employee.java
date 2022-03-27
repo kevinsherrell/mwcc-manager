@@ -1,6 +1,8 @@
 package com.mwcc.mwccmanager.Employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mwcc.mwccmanager.Store.Store;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,28 +14,45 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 //    @Column(name="id", nullable = false)
     private Long id;
-    @Column(name = "store_id", nullable = false)
+
+    @Column(name = "store_id", nullable = false, insertable = true, updatable = true)
     private Long storeId;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
     @Column(name = "last_name", nullable = false)
     private String lastName;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
     @Column(name = "password", nullable = false)
     private String password;
+
     @Column(name = "role", nullable = false)
     private String role;
+
     @Column(name = "access_level", nullable = false)
     private String accessLevel;
+
     @Column(name = "sales_hourly", nullable = false)
     private Double hourlyRateSales;
+
     @Column(name = "hourly_guarantee", nullable = false)
     private Double hourlyRateGuarantee;
+
     @Column(name = "vacation_days", nullable = false)
     private int vacationDays;
+
     @Column(name = "sick_days", nullable = false)
     private int sickDays;
+
+
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Store.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="store_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Store homeStore;
+
 
 //    @Temporal(TemporalType.DATE)
 //    @Column(name="date_created", nullable = false)
@@ -174,5 +193,13 @@ public class Employee {
 
     public void setSickDays(int sickDays) {
         this.sickDays = sickDays;
+    }
+
+    public Store getHomeStore() {
+        return homeStore;
+    }
+
+    public void setHomeStore(Store homeStore) {
+        this.homeStore = homeStore;
     }
 }
