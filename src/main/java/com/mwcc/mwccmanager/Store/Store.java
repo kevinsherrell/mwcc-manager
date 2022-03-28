@@ -15,7 +15,8 @@ public class Store {
     private String state;
     @Column(name="addreses", nullable=false)
     private String address;
-
+    @Column(name="zip_code", nullable = false)
+    private String zipCode;
 
     public Store(String city, String state, String address) {
         this.id = id;
@@ -55,6 +56,14 @@ public class Store {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     @Override
