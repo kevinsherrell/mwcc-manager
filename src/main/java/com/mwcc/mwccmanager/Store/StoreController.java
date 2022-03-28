@@ -26,4 +26,5 @@ public class StoreController {
     public ResponseEntity<?> addStore() {
         return new ResponseEntity<>(storeService.getAll(), HttpStatus.ACCEPTED);
     }
+    //comment
 }
