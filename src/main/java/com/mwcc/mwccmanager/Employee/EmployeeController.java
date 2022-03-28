@@ -19,8 +19,7 @@ public class EmployeeController {
         employee.setId(0L);
         System.out.println(employee.getId());
         employeeService.saveOrUpdateEmployee(employee);
-        System.out.println(employee.getHomeStore().toString());
-        return new ResponseEntity<Employee>(employee, HttpStatus.CREATED);
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{id}")

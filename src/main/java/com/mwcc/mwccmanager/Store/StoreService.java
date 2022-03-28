@@ -8,7 +8,11 @@ public class StoreService {
     @Autowired
     private StoreRepository storeRepository;
 
-    public Store saveOrUpdateStore(Store store) throws Exception{
+    public Store saveOrUpdateStore(Store store) throws Exception {
         return storeRepository.save(store);
+    }
+
+    public Iterable<Store> getAll() {
+        return storeRepository.findAll();
     }
 }
