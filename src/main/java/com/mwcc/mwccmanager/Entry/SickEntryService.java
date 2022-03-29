@@ -8,7 +8,7 @@ public class SickEntryService {
     @Autowired
     private SickEntryRepository sickEntryRepository;
 
-    public SickEntry saveOrUpdateRegularEntry(SickEntry sickEntry) {
+    public SickEntry saveOrUpdateSickEntry(SickEntry sickEntry) {
         return sickEntryRepository.save(sickEntry);
     }
 

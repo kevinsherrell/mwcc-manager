@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/sick-entry")
@@ -18,7 +15,13 @@ public class SickEntryController {
     @PostMapping("/add")
     public ResponseEntity<?> addNewSickEntry(@RequestBody SickEntry sickEntry) {
         sickEntry.setId(0L);
-        sickEntryService.saveOrUpdateRegularEntry(sickEntry);
+        sickEntryService.saveOrUpdateSickEntry(sickEntry);
+        return new ResponseEntity<>(sickEntry, HttpStatus.CREATED);
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateSick(@PathVariable Long id, @RequestBody SickEntry sickEntry){
+        sickEntry.setId(id);
+        sickEntryService.saveOrUpdateSickEntry(sickEntry);
         return new ResponseEntity<>(sickEntry, HttpStatus.CREATED);
     }
 }
