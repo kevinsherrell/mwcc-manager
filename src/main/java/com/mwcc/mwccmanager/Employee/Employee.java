@@ -54,14 +54,13 @@ public class Employee {
     private Store homeStore;
 
 
+
 //    @Temporal(TemporalType.DATE)
 //    @Column(name="date_created", nullable = false)
 //    private Date dateCreated = new Date();
 //    @Temporal(TemporalType.DATE)
 //    @Column(name="date_updated", nullable = false)
 //    private Date dateUpdated = new Date();
-
-
     protected Employee() {
     }
 
