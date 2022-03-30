@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class TimesheetController {
     @Autowired
     private TimesheetService timesheetService;
-    private PayPeriodService payPeriodService;
 
     @PostMapping("/add")
     public ResponseEntity<?> addNewTimesheet(@RequestBody Timesheet timesheet) {
@@ -34,6 +33,10 @@ public class TimesheetController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllTimesheets() throws Exception {
+//        for(Timesheet t: timesheetService.getAll()){
+//            System.out.println(t.getPayPeriod().getStart());
+//            System.out.println(t.getPayPeriod().getEnd());
+//        }
         return new ResponseEntity<>(timesheetService.getAll(), HttpStatus.ACCEPTED);
     }
 
@@ -43,8 +46,9 @@ public class TimesheetController {
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<?> getTimeshetById(@PathVariable Long id) {
+    public ResponseEntity<?> getTimesheetById(@PathVariable Long id) {
         return new ResponseEntity<>(timesheetService.getById(id), HttpStatus.ACCEPTED);
     }
+
 
 }

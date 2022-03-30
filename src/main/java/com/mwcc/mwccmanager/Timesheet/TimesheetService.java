@@ -10,19 +10,21 @@ public class TimesheetService {
     @Autowired
     private TimesheetRepository timesheetRepository;
 
-    public Timesheet saveOrUpdateTimesheet(Timesheet timesheet){
+    public Timesheet saveOrUpdateTimesheet(Timesheet timesheet) {
         return timesheetRepository.save(timesheet);
     }
 
     public Iterable<Timesheet> getAll() throws Exception {
         return timesheetRepository.findAll();
     }
-public Iterable<Timesheet> getAllByEmployeeId(Long employeeId){
-    return timesheetRepository.findAllByEmployeeId(employeeId);
-}
-public Optional<Timesheet> getById(Long id){
-    return timesheetRepository.findById(id);
-}
+
+    public Iterable<Timesheet> getAllByEmployeeId(Long employeeId) {
+        return timesheetRepository.findAllByEmployeeId(employeeId);
+    }
+
+    public Optional<Timesheet> getById(Long id) {
+        return timesheetRepository.findById(id);
+    }
 
 
 }

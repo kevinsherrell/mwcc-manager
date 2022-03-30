@@ -1,6 +1,10 @@
 package com.mwcc.mwccmanager.Timesheet;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mwcc.mwccmanager.Entry.RegularEntry;
+import com.mwcc.mwccmanager.Entry.SickEntry;
+import com.mwcc.mwccmanager.Entry.VacationEntry;
 import com.mwcc.mwccmanager.PayPeriod.PayPeriod;
 //import com.mwcc.mwccmanager.Entry.Entry;
 
@@ -21,12 +25,7 @@ public class Timesheet {
     private Long employeeId;
     @Column(name = "period_id", nullable = false)
     private Long periodId;
-    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Column(name = "period_start", nullable = false)
-//    private LocalDateTime periodStart;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Column(name = "period_end")
-//    private LocalDateTime periodEnd;
+
     @Column(name = "commission")
     private double commission = 0.0;
     @Column(name = "uhaul")
@@ -38,10 +37,15 @@ public class Timesheet {
     @Column(name = "special_2")
     private double special2 = 0.0;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = PayPeriod.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "period_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private PayPeriod payPeriod;
-
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = RegularEntry.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "timesheet_id")
+    private List<RegularEntry> regularEntries;
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = SickEntry.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "timesheet_id")
+    private List<SickEntry> sickEntries;
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = VacationEntry.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "timesheet_id")
+    private List<VacationEntry> vacationEntries;
     public Timesheet() {
 
     }
@@ -49,8 +53,6 @@ public class Timesheet {
     public Timesheet(Long employeeId, Long periodId) {
         this.employeeId = employeeId;
         this.periodId = periodId;
-//        this.periodStart = periodStart;
-//        this.periodEnd = periodEnd;
     }
 
     public Long getId() {
@@ -77,21 +79,6 @@ public class Timesheet {
         this.periodId = periodId;
     }
 
-//    public LocalDate getPeriodStart() {
-//        return periodStart;
-//    }
-//
-//    public void setPeriodStart(LocalDate periodStart) {
-//        this.periodStart = periodStart;
-//    }
-//
-//    public LocalDate getPeriodEnd() {
-//        return periodEnd;
-//    }
-//
-//    public void setPeriodEnd(LocalDate periodEnd) {
-//        this.periodEnd = periodEnd;
-//    }
 
     public double getCommission() {
         return commission;
@@ -133,14 +120,29 @@ public class Timesheet {
         this.special2 = special2;
     }
 
-//    public List<Entry> getEntries() {
-//        return entries;
-//    }
-//
-//    public void setEntries(List<Entry> entries) {
-//        this.entries = entries;
-//    }
+    public List<RegularEntry> getRegularEntries() {
+        return regularEntries;
+    }
 
+    public void setRegularEntries(List<RegularEntry> regularEntries) {
+        this.regularEntries = regularEntries;
+    }
+
+    public List<SickEntry> getSickEntries() {
+        return sickEntries;
+    }
+
+    public void setSickEntries(List<SickEntry> sickEntries) {
+        this.sickEntries = sickEntries;
+    }
+
+    public List<VacationEntry> getVacationEntries() {
+        return vacationEntries;
+    }
+
+    public void setVacationEntries(List<VacationEntry> vacationEntries) {
+        this.vacationEntries = vacationEntries;
+    }
 
     @Override
     public String toString() {
@@ -155,11 +157,5 @@ public class Timesheet {
                 '}';
     }
 
-    public PayPeriod getPayPeriod() {
-        return payPeriod;
-    }
 
-    public void setPayPeriod(PayPeriod payPeriod) {
-        this.payPeriod = payPeriod;
-    }
 }

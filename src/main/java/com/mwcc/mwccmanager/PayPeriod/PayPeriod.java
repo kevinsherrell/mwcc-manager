@@ -59,11 +59,11 @@ public class PayPeriod {
         this.end = end;
     }
 
-//    public List<Timesheet> getTimesheets() {
-//        return timesheets;
-//    }
-//
-//    public void setTimesheets(List<Timesheet> timesheets) {
-//        this.timesheets = timesheets;
-//    }
+    public List<Timesheet> getTimesheets() {
+        return timesheets;
+    }
+
+    public void setTimesheets(List<Timesheet> timesheets) {
+        this.timesheets = timesheets;
+    }
 }
