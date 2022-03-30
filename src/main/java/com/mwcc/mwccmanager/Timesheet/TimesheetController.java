@@ -1,5 +1,6 @@
 package com.mwcc.mwccmanager.Timesheet;
 
+import com.mwcc.mwccmanager.PayPeriod.PayPeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.*;
 public class TimesheetController {
     @Autowired
     private TimesheetService timesheetService;
+    private PayPeriodService payPeriodService;
 
     @PostMapping("/add")
     public ResponseEntity<?> addNewTimesheet(@RequestBody Timesheet timesheet) {
-        timesheet.setId(0L);
-        timesheetService.saveOrUpdateTimesheet(timesheet);
+        try {
+            timesheet.setId(0L);
+            timesheetService.saveOrUpdateTimesheet(timesheet);
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+        }
         return new ResponseEntity<>(timesheet, HttpStatus.CREATED);
     }
 

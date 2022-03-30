@@ -1,10 +1,12 @@
 package com.mwcc.mwccmanager.Timesheet;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mwcc.mwccmanager.PayPeriod.PayPeriod;
 //import com.mwcc.mwccmanager.Entry.Entry;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,12 +19,14 @@ public class Timesheet {
     private Long id;
     @Column(name = "employee_id", nullable = false)
     private Long employeeId;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "period_start", nullable = false)
-    private LocalDate periodStart;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "period_end")
-    private LocalDate periodEnd;
+    @Column(name = "period_id", nullable = false)
+    private Long periodId;
+    //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Column(name = "period_start", nullable = false)
+//    private LocalDateTime periodStart;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Column(name = "period_end")
+//    private LocalDateTime periodEnd;
     @Column(name = "commission")
     private double commission = 0.0;
     @Column(name = "uhaul")
@@ -34,18 +38,19 @@ public class Timesheet {
     @Column(name = "special_2")
     private double special2 = 0.0;
 
-//    @OneToMany(fetch = FetchType.EAGER, targetEntity = Entry.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "timesheet_id")
-//    private List<Entry> entries;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = PayPeriod.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "period_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private PayPeriod payPeriod;
 
     public Timesheet() {
 
     }
 
-    public Timesheet(Long employeeId, LocalDate periodStart, LocalDate periodEnd) {
+    public Timesheet(Long employeeId, Long periodId) {
         this.employeeId = employeeId;
-        this.periodStart = periodStart;
-        this.periodEnd = periodEnd;
+        this.periodId = periodId;
+//        this.periodStart = periodStart;
+//        this.periodEnd = periodEnd;
     }
 
     public Long getId() {
@@ -64,22 +69,29 @@ public class Timesheet {
         this.employeeId = employeeId;
     }
 
-
-    public LocalDate getPeriodStart() {
-        return periodStart;
+    public Long getPeriodId() {
+        return periodId;
     }
 
-    public void setPeriodStart(LocalDate periodStart) {
-        this.periodStart = periodStart;
+    public void setPeriodId(Long periodId) {
+        this.periodId = periodId;
     }
 
-    public LocalDate getPeriodEnd() {
-        return periodEnd;
-    }
-
-    public void setPeriodEnd(LocalDate periodEnd) {
-        this.periodEnd = periodEnd;
-    }
+//    public LocalDate getPeriodStart() {
+//        return periodStart;
+//    }
+//
+//    public void setPeriodStart(LocalDate periodStart) {
+//        this.periodStart = periodStart;
+//    }
+//
+//    public LocalDate getPeriodEnd() {
+//        return periodEnd;
+//    }
+//
+//    public void setPeriodEnd(LocalDate periodEnd) {
+//        this.periodEnd = periodEnd;
+//    }
 
     public double getCommission() {
         return commission;
@@ -135,13 +147,19 @@ public class Timesheet {
         return "Timesheet{" +
                 "id=" + id +
                 ", employeeId=" + employeeId +
-                ", periodStart=" + periodStart +
-                ", periodEnd=" + periodEnd +
                 ", commission=" + commission +
                 ", uhaul=" + uhaul +
                 ", spiff=" + spiff +
                 ", special=" + special +
                 ", special2=" + special2 +
                 '}';
+    }
+
+    public PayPeriod getPayPeriod() {
+        return payPeriod;
+    }
+
+    public void setPayPeriod(PayPeriod payPeriod) {
+        this.payPeriod = payPeriod;
     }
 }
