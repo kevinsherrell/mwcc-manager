@@ -42,6 +42,9 @@ public class Employee {
     @Column(name = "hourly_guarantee", nullable = false)
     private Double hourlyRateGuarantee;
 
+    @Column(name = "uhaul_rate", nullable = false)
+    private Double uhaulRate;
+
     @Column(name = "vacation_days", nullable = false)
     private int vacationDays;
 
